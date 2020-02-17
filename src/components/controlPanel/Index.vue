@@ -28,7 +28,7 @@
           type="primary"
           :disabled="!selectedImg.imgVideo"
           style="margin-left:16px"
-          @click="changeImg"
+          @click="changeVideo"
         >换视频</el-button>
       </div>
       <div class="panel-rows">
@@ -135,10 +135,10 @@ export default {
       })
     },
     changeImg () {
-      this.selectedImg.img.attr('imgSrc', this.selectedImg.imgSrc)
+      this.selectedImg.img.attr('src', this.selectedImg.imgSrc)
     },
     changeVideo () {
-      this.selectedImg.img.data('video', this.selectedImg.imgVideo)
+      this.selectedImg.img.attr('data-video', this.selectedImg.imgVideo)
     },
     putBeforePosition () {
       if (!this.selectedImg.img.prev().length) return this.$message.error('上面没图可以移动')
