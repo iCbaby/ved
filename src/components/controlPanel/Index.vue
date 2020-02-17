@@ -29,13 +29,7 @@
             placeholder="视频src"
             style="width:70%"
           />
-          <el-button
-            size="mini"
-            type="primary"
-            :disabled="!selectedImg.imgVideo"
-            style="margin-left:16px"
-            @click="changeVideo"
-          >换视频</el-button>
+          <el-button size="mini" type="primary" style="margin-left:16px" @click="changeVideo">换视频</el-button>
         </div>
         <div class="panel-rows">
           添加：
@@ -147,8 +141,15 @@ export default {
       this.$message.success('换图成功')
     },
     changeVideo () {
-      this.selectedImg.img.attr('data-video', this.selectedImg.imgVideo)
-      this.$message.success('换视频成功')
+      if (this.selectedImg.imgVideo) {
+        this.selectedImg.img.attr('data-video', this.selectedImg.imgVideo)
+        this.selectedImg.img.addClass('events-video-dialog')
+        this.$message.success('换视频成功')
+      } else {
+        this.selectedImg.img.removeAttr('data-video')
+        this.selectedImg.img.removeClass('events-video-dialog')
+        this.$message.success('删视频成功')
+      }
     },
     putBeforePosition () {
       if (!this.selectedImg.img.prev().length) return this.$message.error('上面没图可以移动')
@@ -171,8 +172,10 @@ export default {
 
       if (this.addImg.imgVideo) {
         newImg.data('video', this.addImg.imgVideo)
+        this.selectedImg.img.addClass('events-video-dialog')
       } else {
         newImg.removeAttr('data-video')
+        this.selectedImg.img.removeClass('events-video-dialog')
       }
 
       if (flag === 'prev') {
