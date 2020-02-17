@@ -4,59 +4,66 @@
       <el-button size="mini" type="primary" @click="preView">预览</el-button>
       <el-button size="mini" type="success" style="marginLeft:24px" @click="genarateCode">生成代码</el-button>
     </div>
-    <div v-if="showPanel" class="img-panel" :style="styleObject">
-      <div>
-        <el-button size="mini" type="primary" @click="putBeforePosition">向上移动一格</el-button>
-        <el-button size="mini" type="primary" @click="putNextPosition">向下移动一格</el-button>
-      </div>
-      <div class="panel-rows">
-        换图：
-        <el-input v-model="selectedImg.imgSrc" size="mini" placeholder="图片src" style="width:75%" />
-        <el-button
-          size="mini"
-          type="primary"
-          :disabled="!selectedImg.imgSrc"
-          style="margin-left:16px"
-          @click="changeImg"
-        >换图</el-button>
-      </div>
-      <div class="panel-rows">
-        换视频：
-        <el-input v-model="selectedImg.imgVideo" size="mini" placeholder="视频src" style="width:70%" />
-        <el-button
-          size="mini"
-          type="primary"
-          :disabled="!selectedImg.imgVideo"
-          style="margin-left:16px"
-          @click="changeVideo"
-        >换视频</el-button>
-      </div>
-      <div class="panel-rows">
-        添加：
-        <el-input v-model="addImg.imgSrc" size="mini" placeholder="需要添加的图片src" style="width:33%" />
-        <el-input
-          v-model="addImg.imgVideo"
-          size="mini"
-          placeholder="需要添加的视频src"
-          style="width:33%;margin-left:8px"
-        />
-        <el-button
-          size="mini"
-          type="primary"
-          :disabled="!addImg.imgSrc"
-          style="margin-left:12px"
-          @click="addAnImg('prev')"
-        >上</el-button>
-        <el-button
-          size="mini"
-          type="primary"
-          :disabled="!addImg.imgSrc"
-          style="margin-left:12px"
-          @click="addAnImg('next')"
-        >下</el-button>
-      </div>
-      <div class="panel-rows">
-        <el-button size="mini" type="danger" @click="deleteAnImg">删除</el-button>
+    <div v-if="handleSuccess">
+      <div v-if="showPanel" class="img-panel" :style="styleObject">
+        <div>
+          <el-button size="mini" type="primary" @click="putBeforePosition">向上移动一格</el-button>
+          <el-button size="mini" type="primary" @click="putNextPosition">向下移动一格</el-button>
+        </div>
+        <div class="panel-rows">
+          换图：
+          <el-input v-model="selectedImg.imgSrc" size="mini" placeholder="图片src" style="width:75%" />
+          <el-button
+            size="mini"
+            type="primary"
+            :disabled="!selectedImg.imgSrc"
+            style="margin-left:16px"
+            @click="changeImg"
+          >换图</el-button>
+        </div>
+        <div class="panel-rows">
+          换视频：
+          <el-input
+            v-model="selectedImg.imgVideo"
+            size="mini"
+            placeholder="视频src"
+            style="width:70%"
+          />
+          <el-button
+            size="mini"
+            type="primary"
+            :disabled="!selectedImg.imgVideo"
+            style="margin-left:16px"
+            @click="changeVideo"
+          >换视频</el-button>
+        </div>
+        <div class="panel-rows">
+          添加：
+          <el-input v-model="addImg.imgSrc" size="mini" placeholder="需要添加的图片src" style="width:33%" />
+          <el-input
+            v-model="addImg.imgVideo"
+            size="mini"
+            placeholder="需要添加的视频src"
+            style="width:33%;margin-left:8px"
+          />
+          <el-button
+            size="mini"
+            type="primary"
+            :disabled="!addImg.imgSrc"
+            style="margin-left:12px"
+            @click="addAnImg('prev')"
+          >上</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            :disabled="!addImg.imgSrc"
+            style="margin-left:12px"
+            @click="addAnImg('next')"
+          >下</el-button>
+        </div>
+        <div class="panel-rows">
+          <el-button size="mini" type="danger" @click="deleteAnImg">删除</el-button>
+        </div>
       </div>
     </div>
     <div v-if="insertdHtml" v-html="insertdHtml" class="control-panel" />
@@ -75,6 +82,7 @@ export default {
   components: {},
   data () {
     return {
+      handleSuccess: true,
       insertdHtml: '',
       showPanel: false,
       styleObject: {
@@ -136,9 +144,11 @@ export default {
     },
     changeImg () {
       this.selectedImg.img.attr('src', this.selectedImg.imgSrc)
+      this.$message.success('换图成功')
     },
     changeVideo () {
       this.selectedImg.img.attr('data-video', this.selectedImg.imgVideo)
+      this.$message.success('换视频成功')
     },
     putBeforePosition () {
       if (!this.selectedImg.img.prev().length) return this.$message.error('上面没图可以移动')
@@ -219,7 +229,11 @@ export default {
     clearData () {
       this.selectedImg = this.initSelectedImg()
       this.addImg = this.initAddImg()
-      this.$message.success('成功，鼠标要移开图一吓！')
+      this.$message.success('操作成功')
+      this.handleSuccess = false
+      setTimeout(() => {
+        this.handleSuccess = true
+      }, 500)
     }
   }
 }
