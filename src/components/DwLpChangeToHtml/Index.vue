@@ -1,7 +1,6 @@
 <template>
   <div id="app-conver-to-html">
     <div v-if="insertdHtml" v-html="insertdHtml" />
-    <div v-if="insertdScript" v-html="insertdHtml" />
   </div>
 </template>
 
@@ -11,8 +10,7 @@ export default {
   components: {},
   data () {
     return {
-      insertdHtml: '',
-      insertdScript: ''
+      insertdHtml: ''
     }
   },
   created () {
@@ -33,6 +31,7 @@ export default {
       $('body').on('click', '#app-conver-to-html .landtab .span2', function () {
         const indexv = $(this).index()
         $('#app-conver-to-html .landtabwrap .tab2').hide().eq(indexv).fadeIn()
+        $('#app-conver-to-html .landtabwrap .tabTwo').hide().eq(indexv).fadeIn()
       })
     },
     offJqHandler () {
@@ -43,11 +42,18 @@ export default {
       $('body').off('click', '#app-conver-to-html .landtab .span2', function () {
         const indexv = $(this).index()
         $('#app-conver-to-html .landtabwrap .tab2').hide().eq(indexv).fadeIn()
+        $('#app-conver-to-html .landtabwrap .tabTwo').hide().eq(indexv).fadeIn()
       })
     }
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+#app-conver-to-html >>> a.bcric {
+  background-color: rgba(255,0,0,.5);
+}
+</style>
 
 <style>
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div id="app-index">
+  <div id="dw-pdp">
     <div class="left-section">
       <div class="codeInputWrapper">
-        <CodeInput @getCode="setCode" />
+        <CodeInput @getCode="setCode" toolsname="GA-PDP" />
       </div>
     </div>
     <div class="middle-section">
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import CodeInput from '@/components/codeInput/Index'
-import ControlPanel from '@/components/controlPanel/Index'
-import ConverToHtml from '@/components/changeToHtml/Index'
+import CodeInput from '@c/GaCodeInput/Index'
+import ControlPanel from '@c/GaControlPanel/Index'
+import ConverToHtml from '@c/DwChangeToHtml/Index'
 
 export default {
-  name: 'Home',
+  name: 'GaPdp',
   components: {
     CodeInput,
     ControlPanel,
@@ -47,19 +47,23 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-#app-index {
+#dw-pdp {
   display: flex;
 
   .left-section {
-    flex: 1;
+    flex: 0 0 7%;
+    width: 7%;
   }
 
   .middle-section {
-    flex: 4;
+    flex: 0 0 25%;
+    width: 25%;
+    margin: 0 4% 0 1%;
   }
 
   .right-section {
-    flex: 8;
+    flex: 0 0 60%;
+    width: 60%;
   }
 }
 </style>
